@@ -1,11 +1,3 @@
-//
-//  ViewController.swift
-//  Xylophone
-//
-//  Created by Angela Yu on 28/06/2019.
-//  Copyright © 2019 The App Brewery. All rights reserved.
-//
-
 import UIKit
 import AVFoundation
  
@@ -18,13 +10,11 @@ class ViewController: UIViewController {
     }
 
     @IBAction func keyPressed(_ sender: UIButton) {
-        playSound()
+        playSound(soundName: sender.currentTitle!)
     }
     
-    func playSound() {
-        let url = Bundle.main.url(forResource: "C", withExtension: "wav")
-        
-        player?.play()
+    func playSound(soundName: String) {
+        let url = Bundle.main.url(forResource: soundName, withExtension: "wav")
         
         do {
             try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
@@ -33,11 +23,9 @@ class ViewController: UIViewController {
             player = try! AVAudioPlayer(contentsOf: url!)
             
             player?.play()
-            
         } catch let error {
             print(error.localizedDescription)
         }
     }
     
 }
-
